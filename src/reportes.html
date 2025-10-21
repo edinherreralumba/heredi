@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fluye · Reportes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Material+Symbols+Rounded"
+      rel="stylesheet"
+    />
+    <style><?!= include('styles'); ?></style>
+  </head>
+  <body data-page="reportes">
+    <div class="app-shell">
+      <header class="top-bar">
+        <div class="greeting">
+          <p class="greeting__subtitle">Analiza y proyecta</p>
+          <h1 class="greeting__title">Reportes inteligentes</h1>
+        </div>
+        <button class="primary-icon-button" id="refreshReports" type="button">
+          <span class="material-symbols-rounded">refresh</span>
+        </button>
+      </header>
+
+      <main class="main-content">
+        <section class="section">
+          <h2 class="section__title">Ingresos vs Gastos</h2>
+          <div class="analytics-card">
+            <header class="analytics-card__header">
+              <span class="material-symbols-rounded">stacked_line_chart</span>
+              <h3>Tendencia mensual</h3>
+            </header>
+            <div class="analytics-card__body" id="monthlyTrend"></div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section__title">Gastos por categoría</h2>
+          <div class="analytics-card">
+            <header class="analytics-card__header">
+              <span class="material-symbols-rounded">donut_small</span>
+              <h3>Top categorías</h3>
+            </header>
+            <div class="analytics-card__body" id="categoryBreakdown"></div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section__title">Calculadoras</h2>
+          <div class="calculators-grid">
+            <article class="calculator-card">
+              <h3>Crédito 💰</h3>
+              <div class="form__field">
+                <label for="loanAmount">Monto</label>
+                <input type="number" id="loanAmount" min="0" step="0.01" placeholder="S/ 5,000" />
+              </div>
+              <div class="form__field">
+                <label for="loanRate">Tasa anual (%)</label>
+                <input type="number" id="loanRate" min="0" step="0.01" placeholder="12" />
+              </div>
+              <div class="form__field">
+                <label for="loanTerm">Plazo (meses)</label>
+                <input type="number" id="loanTerm" min="1" step="1" placeholder="24" />
+              </div>
+              <button class="btn btn-secondary" type="button" id="calculateLoan">Calcular cuota</button>
+              <p class="calculator-result" id="loanResult">Cuota mensual: —</p>
+            </article>
+
+            <article class="calculator-card">
+              <h3>Inversión 📈</h3>
+              <div class="form__field">
+                <label for="investmentAmount">Aporte mensual</label>
+                <input type="number" id="investmentAmount" min="0" step="0.01" placeholder="S/ 300" />
+              </div>
+              <div class="form__field">
+                <label for="investmentRate">Rentabilidad anual (%)</label>
+                <input type="number" id="investmentRate" min="0" step="0.01" placeholder="8" />
+              </div>
+              <div class="form__field">
+                <label for="investmentYears">Años</label>
+                <input type="number" id="investmentYears" min="1" step="1" placeholder="5" />
+              </div>
+              <button class="btn btn-secondary" type="button" id="calculateInvestment">Calcular proyección</button>
+              <p class="calculator-result" id="investmentResult">Proyección: —</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section__title">Próximamente</h2>
+          <div class="coming-soon-grid">
+            <article class="coming-soon-card">
+              <span class="material-symbols-rounded">flag</span>
+              <h3>Gastos vs Presupuesto</h3>
+              <p>Comparativa automática entre lo planificado y lo ejecutado.</p>
+            </article>
+            <article class="coming-soon-card">
+              <span class="material-symbols-rounded">account_balance</span>
+              <h3>Transacciones por cuenta</h3>
+              <p>Visualiza el flujo de cada cuenta bancaria o billetera.</p>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <nav class="bottom-nav" aria-label="Navegación principal">
+        <a href="?page=index" class="bottom-nav__link" data-nav="index">
+          <span class="material-symbols-rounded">home</span>
+          <span>Inicio</span>
+        </a>
+        <a href="?page=presupuesto" class="bottom-nav__link" data-nav="presupuesto">
+          <span class="material-symbols-rounded">pie_chart</span>
+          <span>Presupuesto</span>
+        </a>
+        <a href="https://meet.google.com/" target="_blank" class="bottom-nav__link" data-nav="asistente">
+          <span class="material-symbols-rounded">smart_toy</span>
+          <span>Asistente</span>
+        </a>
+        <a href="?page=reportes" class="bottom-nav__link" data-nav="reportes">
+          <span class="material-symbols-rounded">bar_chart</span>
+          <span>Reportes</span>
+        </a>
+      </nav>
+    </div>
+
+    <script><?!= include('scripts'); ?></script>
+  </body>
+</html>

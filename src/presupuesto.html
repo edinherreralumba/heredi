@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fluye · Presupuestos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Material+Symbols+Rounded"
+      rel="stylesheet"
+    />
+    <style><?!= include('styles'); ?></style>
+  </head>
+  <body data-page="presupuesto">
+    <div class="app-shell">
+      <header class="top-bar">
+        <div class="greeting">
+          <p class="greeting__subtitle">Organiza tus metas</p>
+          <h1 class="greeting__title">Presupuesto mensual</h1>
+        </div>
+        <button class="primary-icon-button" id="openBudgetModal" type="button">
+          <span class="material-symbols-rounded">add</span>
+        </button>
+      </header>
+
+      <main class="main-content">
+        <section class="section">
+          <h2 class="section__title">Resumen por categoría</h2>
+          <div class="budgets-grid" id="budgetsGrid" aria-live="polite"></div>
+        </section>
+
+        <section class="section">
+          <h2 class="section__title">Consejos rápidos</h2>
+          <div class="tips-grid">
+            <article class="tip-card">
+              <h3>70-20-10</h3>
+              <p>Distribuye tus ingresos: 70% gastos fijos, 20% metas financieras, 10% diversión.</p>
+            </article>
+            <article class="tip-card">
+              <h3>Prioriza</h3>
+              <p>Registra primero tus obligaciones: alquiler, servicios y deudas antes de otros gastos.</p>
+            </article>
+            <article class="tip-card">
+              <h3>Revisa semanalmente</h3>
+              <p>Bloquea 15 minutos los domingos para comparar tu gasto real vs planificado.</p>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <nav class="bottom-nav" aria-label="Navegación principal">
+        <a href="?page=index" class="bottom-nav__link" data-nav="index">
+          <span class="material-symbols-rounded">home</span>
+          <span>Inicio</span>
+        </a>
+        <a href="?page=presupuesto" class="bottom-nav__link" data-nav="presupuesto">
+          <span class="material-symbols-rounded">pie_chart</span>
+          <span>Presupuesto</span>
+        </a>
+        <a href="https://meet.google.com/" target="_blank" class="bottom-nav__link" data-nav="asistente">
+          <span class="material-symbols-rounded">smart_toy</span>
+          <span>Asistente</span>
+        </a>
+        <a href="?page=reportes" class="bottom-nav__link" data-nav="reportes">
+          <span class="material-symbols-rounded">bar_chart</span>
+          <span>Reportes</span>
+        </a>
+      </nav>
+    </div>
+
+    <section class="modal" id="budgetModal" aria-hidden="true" aria-labelledby="budgetModalTitle" role="dialog">
+      <div class="modal__backdrop" data-dismiss></div>
+      <div class="modal__dialog">
+        <header class="modal__header">
+          <h2 class="modal__title" id="budgetModalTitle">Nuevo presupuesto</h2>
+          <button class="modal__close" type="button" data-dismiss>
+            <span class="material-symbols-rounded">close</span>
+          </button>
+        </header>
+        <form class="form" id="budgetForm">
+          <div class="form__field">
+            <label for="budgetMonth">Mes</label>
+            <input type="month" id="budgetMonth" name="month" required />
+          </div>
+          <div class="form__field">
+            <label for="budgetCategory">Categoría</label>
+            <select id="budgetCategory" name="category" required></select>
+          </div>
+          <div class="form__field">
+            <label for="budgetAmount">Monto planificado</label>
+            <input type="number" step="0.01" min="0" id="budgetAmount" name="planned" required />
+          </div>
+          <div class="form__field">
+            <label for="budgetNotes">Notas</label>
+            <textarea id="budgetNotes" name="notes" rows="2" placeholder="Opcional"></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit">Guardar</button>
+        </form>
+      </div>
+    </section>
+
+    <script><?!= include('scripts'); ?></script>
+  </body>
+</html>
