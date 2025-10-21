@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fluye · Inicio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Material+Symbols+Rounded"
+      rel="stylesheet"
+    />
+    <style><?!= include('styles'); ?></style>
+  </head>
+  <body data-page="index">
+    <div class="app-shell">
+      <header class="top-bar">
+        <div class="greeting">
+          <p class="greeting__subtitle">¡Hola Edin!</p>
+          <h1 class="greeting__title">Dale flujo a tus finanzas 🐨💸</h1>
+        </div>
+        <button class="sync-button" id="refreshDashboard" type="button">
+          <span class="material-symbols-rounded">refresh</span>
+        </button>
+      </header>
+
+      <main class="main-content">
+        <section class="balance-card">
+          <div class="balance-card__label">Balance total</div>
+          <div class="balance-card__value" id="balanceTotal">S/ 0.00</div>
+          <div class="balance-card__details">
+            <div>
+              <span class="detail-label ingreso">Ingresos</span>
+              <span class="detail-value" id="incomeTotal">S/ 0.00</span>
+            </div>
+            <div>
+              <span class="detail-label gasto">Gastos</span>
+              <span class="detail-value" id="expenseTotal">S/ 0.00</span>
+            </div>
+            <div>
+              <span class="detail-label transferencia">Transferencias</span>
+              <span class="detail-value" id="transferTotal">S/ 0.00</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="quick-actions" aria-label="Acciones rápidas">
+          <button class="quick-action" data-quick="Gasto" type="button">
+            <span class="material-symbols-rounded">trending_down</span>
+            <span>Gasto</span>
+          </button>
+          <button class="quick-action" data-quick="Ingreso" type="button">
+            <span class="material-symbols-rounded">trending_up</span>
+            <span>Ingreso</span>
+          </button>
+          <button class="quick-action" data-quick="Transferencia" type="button">
+            <span class="material-symbols-rounded">sync_alt</span>
+            <span>Transferencia</span>
+          </button>
+          <button class="quick-action" data-accounts type="button">
+            <span class="material-symbols-rounded">account_balance_wallet</span>
+            <span>Cuentas</span>
+          </button>
+        </section>
+
+        <section class="accounts-card" id="accountsList" aria-live="polite"></section>
+
+        <section class="section">
+          <div class="section__header">
+            <h2 class="section__title">Transacciones recientes</h2>
+            <a class="section__link" href="https://docs.google.com/spreadsheets/" target="_blank" rel="noopener">Ver todo</a>
+          </div>
+          <ul class="transactions-list" id="recentTransactions"></ul>
+        </section>
+
+        <section class="section">
+          <div class="section__header">
+            <h2 class="section__title">Presupuestos activos</h2>
+            <a class="section__link" href="?page=presupuesto">Ver más</a>
+          </div>
+          <div class="budget-preview" id="dashboardBudgets"></div>
+        </section>
+      </main>
+
+      <nav class="bottom-nav" aria-label="Navegación principal">
+        <a href="?page=index" class="bottom-nav__link" data-nav="index">
+          <span class="material-symbols-rounded">home</span>
+          <span>Inicio</span>
+        </a>
+        <a href="?page=presupuesto" class="bottom-nav__link" data-nav="presupuesto">
+          <span class="material-symbols-rounded">pie_chart</span>
+          <span>Presupuesto</span>
+        </a>
+        <a href="https://meet.google.com/" target="_blank" class="bottom-nav__link" data-nav="asistente">
+          <span class="material-symbols-rounded">smart_toy</span>
+          <span>Asistente</span>
+        </a>
+        <a href="?page=reportes" class="bottom-nav__link" data-nav="reportes">
+          <span class="material-symbols-rounded">bar_chart</span>
+          <span>Reportes</span>
+        </a>
+      </nav>
+    </div>
+
+    <section class="modal" id="transactionModal" aria-hidden="true" aria-labelledby="transactionModalTitle" role="dialog">
+      <div class="modal__backdrop" data-dismiss></div>
+      <div class="modal__dialog">
+        <header class="modal__header">
+          <h2 class="modal__title" id="transactionModalTitle">Registrar movimiento</h2>
+          <button class="modal__close" type="button" data-dismiss>
+            <span class="material-symbols-rounded">close</span>
+          </button>
+        </header>
+        <form class="form" id="transactionForm">
+          <div class="form__field">
+            <label for="transactionDate">Fecha</label>
+            <input type="date" id="transactionDate" name="date" required />
+          </div>
+          <div class="form__field">
+            <label for="transactionType">Tipo</label>
+            <select id="transactionType" name="type" required>
+              <option value="Ingreso">Ingreso</option>
+              <option value="Gasto">Gasto</option>
+              <option value="Transferencia">Transferencia</option>
+            </select>
+          </div>
+          <div class="form__field">
+            <label for="transactionCategory">Categoría</label>
+            <select id="transactionCategory" name="category" required></select>
+          </div>
+          <div class="form__field">
+            <label for="transactionAccount">Cuenta</label>
+            <select id="transactionAccount" name="account" required></select>
+          </div>
+          <div class="form__field">
+            <label for="transactionAmount">Monto</label>
+            <input type="number" step="0.01" min="0" id="transactionAmount" name="amount" required />
+          </div>
+          <div class="form__field">
+            <label for="transactionNotes">Notas</label>
+            <textarea id="transactionNotes" name="notes" rows="2" placeholder="Detalle opcional"></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit">Guardar</button>
+        </form>
+      </div>
+    </section>
+
+    <script><?!= include('scripts'); ?></script>
+  </body>
+</html>
